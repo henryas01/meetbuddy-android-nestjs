@@ -1,0 +1,10 @@
+import { Module } from '@nestjs/common';
+import { AiController } from './ai.controller';
+import { AiService } from './ai.service';
+import { OllamaClient } from './ollama.client';
+
+@Module({
+  controllers: [AiController],
+  providers: [AiService, OllamaClient],
+})
+export class AiModule {}

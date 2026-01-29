@@ -1,6 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
+import { MeetingModule } from './meeting/meeting.module';
+import { ChatModule } from './chat/chat.module';
+import { LiveKitModule } from './livekit/livekit.module';
+import { MailModule } from './mail/mail.module';
+import { AiModule } from './ai/ai.module';
 
 @Module({
   imports: [
@@ -16,6 +21,11 @@ import { AuthModule } from './auth/auth.module';
       synchronize: true, // ⚠️ only in development
     }),
     AuthModule,
+    MeetingModule,
+    ChatModule,
+    LiveKitModule,
+    MailModule,
+    AiModule,
   ],
 })
 export class AppModule {}

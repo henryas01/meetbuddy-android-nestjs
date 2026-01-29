@@ -12,8 +12,29 @@ import {
 // 👉 Swagger imports
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
+import { WsAdapter } from '@nestjs/platform-ws';
+import * as fs from 'fs';
+import * as path from 'path';
+// import { MediasoupService } from './mediasoup/mediasoup.service';
+
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const httpsOptions = {
+    key: fs.readFileSync(path.join(__dirname, '../192.168.1.183+1-key.pem')), // Adjust path as necessary
+    cert: fs.readFileSync(path.join(__dirname, '../192.168.1.183+1.pem')), // Adjust path as necessary
+  };
+
+  // console.log('ddd', path.join(__dirname, '../192.168.1.183+1-key.pem'));
+
+  const app = await NestFactory.create(AppModule, {
+    // httpsOptions,
+  });
+  // const app = await NestFactory.create(AppModule);
+
+  // Mediasoup
+  app.useWebSocketAdapter(new WsAdapter(app));
+
+  // const mediasoup = app.get(MediasoupService);
+  // await mediasoup.init();
 
   // Enable CORS
   app.enableCors({
